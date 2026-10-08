@@ -1,0 +1,101 @@
+IQRA RAFIQ
+
+Full Stack Developer
++92 316 0107320 | iqrarafiq680@gmail.com | Karachi, Pakistan
+
+SUMMARY
+Full Stack Developer with experience building enterprise-grade healthcare applications across the full development
+lifecycle, including frontend interfaces, backend services, API integrations, authentication, and workflow automation.
+Skilled in React.js, Next.js, Node.js, and PostgreSQL, with a track record of delivering role-based, real-time systems for
+multi-stakeholder platforms. Additional experience across React Native, Angular, and Python supporting cross-functional
+development needs.
+
+EXPERIENCE
+Full Stack Developer
+
+11/2023 - 10/2025
+
+Nixaam LLC
+Worked on enterprise healthcare applications serving hospitals, radiologists, physicians, administrators, and patients,
+contributing across frontend development, backend services, API integrations, authentication flows, and healthcare
+workflow automation.
+XRAD - Cloud-Based Medical Imaging Platform
+• Developed and maintained frontend modules using React.js, integrating REST APIs for DICOM viewer functionality,
+patient imaging records, diagnostic workflows, and reporting.
+• Built role-based dashboards supporting Radiologists, Physicians, Hospitals/Centers, Administrators, and Patients, with
+secure authentication and authorization for each healthcare role.
+• Developed reusable React components to improve maintainability and consistency, and collaborated closely with
+backend engineers to integrate imaging services and optimize performance.
+• Improved user experience by optimizing complex medical data visualization interfaces.
+XEHR - Electronic Health Record System
+• Contributed to a comprehensive EHR platform built with Next.js, React.js, Node.js, and PostgreSQL, developing
+modules for patient management, doctor portals, telehealth consultations, appointment scheduling, billing, and
+administrative operations.
+• Implemented real-time patient queue management using Socket.IO, enabling live appointment tracking and doctor
+queue updates.
+• Integrated backend APIs for patient records, consultations, prescriptions, billing, and healthcare workflows, and built
+responsive, role-based dashboards for multiple healthcare stakeholders.
+• Improved application responsiveness and overall workflow efficiency for healthcare professionals.
+Face Recognition System
+• Built the frontend using React.js and integrated facial recognition APIs with backend services for an attendance and
+identity verification system.
+• Worked with Node.js and Python backend services for image processing and identity verification workflows,
+implementing secure API communication between frontend and facial recognition services.
+• Debugged backend services and optimized API response handling.
+Python Contributions
+• Developed and maintained multilingual email templates using Python for English and Arabic communications.
+• Assisted with backend functionality and Python-based services as part of cross-functional development tasks,
+collaborating with backend developers on API integrations and system enhancements.
+
+React Native Developer
+Personal Project - Social Networking Mobile Application (Singapore)
+Designed, developed, deployed, and maintained a complete social networking mobile application for Singapore users.
+
+• Developed the complete mobile application using React Native with a scalable and reusable component architecture,
+and designed backend services using Node.js and Express.js.
+• Designed and managed the MongoDB database architecture for user profiles, messaging, subscriptions, and
+application data, and implemented real-time chat functionality using Socket.IO.
+• Developed swipe-based matching interfaces with premium and standard user functionality, and integrated Singpass
+Authentication (OIDC with MyInfo v4) for secure identity verification.
+• Implemented Google Play Billing for subscription management and in-app purchases, along with push and in-app
+notification systems and analytics tracking for user engagement.
+• Developed scheduled background processes using Cron Jobs, designed authentication and authorization workflows,
+and deployed and maintained backend infrastructure on AWS (Singapore Region).
+
+Angular Developer
+Freelance Project
+Worked on the frontend development of a business web application using Angular and Kendo UI, focusing on responsive
+user interfaces and seamless backend integration.
+• Developed responsive and interactive user interfaces using Angular and Kendo UI components, building reusable UI
+components and maintaining consistent design patterns across the application.
+• Integrated REST APIs to display and manage dynamic data, working with forms, data grids, tables, filtering, and
+validation using Kendo UI.
+• Fixed UI bugs, improved application usability, and optimized frontend performance, and participated in testing and
+debugging to ensure a stable, user-friendly experience.
+• Followed clean coding practices and version control workflows using Git.
+Technologies: Angular, TypeScript, Kendo UI, REST APIs, HTML5, CSS3, Git
+
+EDUCATION
+Masters in Data Science
+
+2026 - Continue
+
+Muhammad Ali Jinnah University
+
+Bachelors in Software Engineering
+
+2020 - 2024
+
+Sindh Madarsatul Islam University
+
+HSC
+
+2017 - 2019
+
+Govt. Girls Degree College Zamzama
+
+SKILLS
+React.js, Next.js, Node.js, Express.js, MongoDB, PostgreSQL, React Native, Angular, TypeScript, JavaScript, REST API
+Integration, Socket.IO / WebSockets, JWT Authentication & Authorization, DICOM Integration, Redux, Kendo UI, Git/SVN,
+Python, Google Play Billing, Cron Jobs, CSS Frameworks, Debugging & Testing
+

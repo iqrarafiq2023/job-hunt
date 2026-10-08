@@ -1,0 +1,26 @@
+import { generateObject } from "ai";
+import { z } from "zod";
+import { model, withRetry } from "../llm";
+import type { Job } from "./extractor";
+
+export const matchSchema = z.object({
+  score: z.number().min(0).max(100),
+  strengths: z.array(z.string()),
+  gaps: z.array(z.string()),
+  verdict: z.string(),
+});
+export type Match = z.infer<typeof matchSchema>;
+
+export async function matchResume(job: Job, resume: string): Promise<Match> {
+  const { object } = await withRetry(() =>
+    generateObject({
+      model,
+      schema: matchSchema,
+      system:
+        "You are an honest recruiter. Score how well the resume fits the job (0-100). " +
+        "Only count skills actually shown in the resume. List real gaps, don't flatter.",
+      prompt: `JOB:\n${JSON.stringify(job)}\n\nRESUME:\n${resume}`,
+    })
+  );
+  return object;
+}
