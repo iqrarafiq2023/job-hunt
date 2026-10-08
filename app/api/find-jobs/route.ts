@@ -105,7 +105,8 @@ export async function POST(req: Request) {
             headers: {
                 Accept: "application/json",
             },
-            cache: "no-store",
+            next: { revalidate: 60 * 60 * 6 },
+
         });
 console.log("Remotive API response status:", res.status);
         if (!res.ok) {
@@ -157,29 +158,20 @@ console.log("Remotive API response status:", res.status);
             });
         }
 
+console.log("jobs fetched:", jobs.length);
 
         const rankings = await rankJobs(jobs, resume);
+console.log("rankings:", rankings.length, "eligible:", rankings.filter((r) => r.eligible).length);
 
-        const ranked = rankings
-            .map((ranking) => {
-                const job = jobs.find(
-                    (job) => String(job.id) === String(ranking.id)
-                );
-
-                if (!job) return null;
-
-                return {
-                    id: String(job.id),
-                    job,
-                    score: ranking.score,
-                    eligible: ranking.eligible,
-                    reason: ranking.reason,
-                };
-            })
-            .filter((item) => item !== null)
-            .filter((item) => item.eligible)
-            .sort((a, b) => b.score - a.score)
-            .slice(0, 10);
+       const ranked = rankings
+  .map((ranking) => {
+    const job = jobs.find((j) => String(j.id) === String(ranking.id));
+    if (!job) return null;
+    return { id: String(job.id), job, score: ranking.score, eligible: ranking.eligible, reason: ranking.reason };
+  })
+  .filter((item) => item !== null)
+  .sort((a, b) => Number(b.eligible) - Number(a.eligible) || b.score - a.score)
+  .slice(0, 10);
 
 
 

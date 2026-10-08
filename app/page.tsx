@@ -61,7 +61,7 @@ export default function Home() {
 
   const [query, setQuery] = useState("react");
   const [jobs, setJobs] = useState<JobResult[]>([]);
-
+const [searched, setSearched] = useState(false);
   /* ------------------------------------------------------------------------ */
   /* Analyze Job                                                              */
   /* ------------------------------------------------------------------------ */
@@ -197,6 +197,7 @@ export default function Home() {
     }
 
     setFinding(true);
+    setSearched(true);
     setError("");
     setJobs([]);
 
@@ -370,7 +371,7 @@ export default function Home() {
                 <input
                   id="resume-upload"
                   type="file"
-                  accept=".pdf,.doc,.docx,.txt"
+                  accept=".pdf"
                   className="hidden"
                   onChange={uploadResume}
                 />
@@ -397,7 +398,7 @@ export default function Home() {
                         </p>
 
                         <p className="mt-0.5 text-xs text-slate-500">
-                          PDF, DOC, DOCX or TXT
+                          PDF only
                         </p>
                       </div>
                     </div>
@@ -730,12 +731,19 @@ export default function Home() {
                       );
                     })}
                   </div>
+                  <p className="mt-4 text-xs text-slate-400">
+  Jobs sourced from{" "}
+  <a href="https://remotive.com" target="_blank" rel="noreferrer" className="underline">
+    Remotive
+  </a>
+  . Listings may be delayed by 24 hours.
+</p>
                 </div>
               )}
 
               {/* Empty State */}
 
-              {!finding &&
+              {searched &&  !finding &&
                 jobs.length === 0 &&
                 query.trim() &&
                 hasResume && (
@@ -1020,9 +1028,7 @@ export default function Home() {
           </section>
         )}
 
-        {/* ---------------------------------------------------------------- */}
-        {/* Footer                                                           */}
-        {/* ---------------------------------------------------------------- */}
+    
 
         <footer className="py-12 text-center text-xs text-slate-400">
           JobHunt Agent
