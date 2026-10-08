@@ -6,10 +6,10 @@ import { writeApplication } from "./agents/writer";
 
 export async function runPipeline(description: string) {
   const resume = await fs.readFile(path.join(process.cwd(), "data/resume.txt"), "utf8");
-
+  console.log("Resume loaded:", resume.substring(0, 100), "..."); // Log the first 100 characters of the resume
   const job = await extractJob(description);        // sequential on purpose (free tier limits)
   const match = await matchResume(job, resume);
   const application = await writeApplication(job, match, resume);
-
+  console.log("Application written:", application);
   return { job, match, ...application };
 }

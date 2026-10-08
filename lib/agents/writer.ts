@@ -1,6 +1,6 @@
 import { generateObject } from "ai";
 import { z } from "zod";
-import { model, withRetry } from "../llm";
+import { withRetry } from "../llm";
 import type { Job } from "./extractor";
 import type { Match } from "./matcher";
 
@@ -10,7 +10,7 @@ export const writerSchema = z.object({
 });
 
 export async function writeApplication(job: Job, match: Match, resume: string) {
-  const { object } = await withRetry(() =>
+  const { object } = await withRetry((model) =>
     generateObject({
       model,
       schema: writerSchema,

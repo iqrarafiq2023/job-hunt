@@ -8,7 +8,9 @@ export async function POST(req: Request) {
     if (!description || description.length < 50) {
       return Response.json({ error: "Paste a full job description." }, { status: 400 });
     }
+    console.log("Running pipeline for job description:", description);
     const result = await runPipeline(description);
+    console.log("Pipeline result:", result);
     return Response.json(result);
   } catch (e: any) {
     console.error(e);

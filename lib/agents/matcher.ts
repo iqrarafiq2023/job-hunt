@@ -1,6 +1,6 @@
 import { generateObject } from "ai";
 import { z } from "zod";
-import { model, withRetry } from "../llm";
+import { withRetry } from "../llm";
 import type { Job } from "./extractor";
 
 export const matchSchema = z.object({
@@ -12,7 +12,7 @@ export const matchSchema = z.object({
 export type Match = z.infer<typeof matchSchema>;
 
 export async function matchResume(job: Job, resume: string): Promise<Match> {
-  const { object } = await withRetry(() =>
+  const { object } = await withRetry((model) =>
     generateObject({
       model,
       schema: matchSchema,

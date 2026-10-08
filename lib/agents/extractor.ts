@@ -1,6 +1,6 @@
 import { generateObject } from "ai";
 import { z } from "zod";
-import { model, withRetry } from "../llm";
+import {  withRetry } from "../llm";
 
 export const jobSchema = z.object({
   title: z.string(),
@@ -12,7 +12,7 @@ export const jobSchema = z.object({
 export type Job = z.infer<typeof jobSchema>;
 
 export async function extractJob(description: string): Promise<Job> {
-  const { object } = await withRetry(() =>
+  const { object } = await withRetry((model) =>
     generateObject({
       model,
       schema: jobSchema,
