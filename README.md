@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JobHunt Agent
 
-## Getting Started
+An AI pipeline that takes a job description and your resume, then tells you how well you fit and helps you apply. Paste a job posting, upload your resume, and get:
 
-First, run the development server:
+- A **match score** (0-100) with honest strengths and gaps
+- A **tailored cover letter** that only uses facts from your resume
+- **3 likely interview questions** for that role
+
+**Live demo:** [ADD YOUR VERCEL URL HERE]
+
+## How it works
+
+Three small agents, each with one job, chained by an orchestrator:
+
+
+| Agent | Input | Output |
+|---|---|---|
+| **Extractor** | Raw job description | `{ title, company, seniority, skills[], requirements[] }` |
+| **Matcher** | Extracted job + resume | `{ score, strengths[], gaps[], verdict }` |
+| **Writer** | Job + match + resume | `{ coverLetter, interviewQuestions[] }` |
+
+Every agent returns schema-validated JSON (Zod), not free text, so each step can rely on the previous one's output.
+
+## Tech stack
+
+- **Next.js** (App Router) + TypeScript + Tailwind CSS
+- **Vercel AI SDK** with structured output (`generateObject` + Zod)
+- **Groq** free tier, running open models (`gpt-oss-120b` / `gpt-oss-20b`)
+- **unpdf** for server-side PDF text extraction
+- Deployed on **Vercel**
+
+## Run it locally
+
+```bash
+git clone [YOUR REPO URL]
+cd jobhunt-agent
+npm install
+```
+
+Create a `.env` file in the project root:
+
+```dotenv
+GROQ_API_KEY=your_groq_api_key
+GROQ_MODELS=openai/gpt-oss-120b,openai/gpt-oss-20b
+```
+
+Get a free key at [console.groq.com](https://console.groq.com) (no credit card needed). Then:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000, upload a PDF resume (or paste the text), paste a job description, and click **Analyze**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Design decisions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Sequential agents, not parallel.** Each step needs the previous one's output, and it keeps usage inside free-tier rate limits.
+- **Model fallback.** `GROQ_MODELS` is a list. Agents start on different models, and if a call fails with a temporary error (rate limit, overload, timeout), the next model is tried. Real bugs are not retried, so they surface immediately.
+- **Hard timeouts.** Every LLM call is capped at 20 seconds so a stuck request can't hang the app.
+- **Strict schemas.** Fields use `nullable` instead of `optional`, because strict JSON-schema mode requires every field to be present.
+- **Nothing is stored.** The resume is held in the browser and sent with each request. There is no database.
 
-## Learn More
+## Privacy
 
-To learn more about Next.js, take a look at the following resources:
+Free-tier LLM providers may not guarantee prompt privacy. Remove your phone number and email from your resume text before analyzing. They aren't needed for matching.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Known limitations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- PDFs with complex multi-column layouts can extract badly. Paste the text as a fallback.
+- Free-tier rate limits apply, so heavy use may be throttled.
+- The match score is the model's judgment, so treat it as a guide, not a measurement.
 
-## Deploy on Vercel
+## Roadmap
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] **Finder agent:** fetch real remote job listings and rank them against your resume
+- [ ] Stream live progress ("Extracting... Matching... Writing...")
+- [ ] Export the cover letter as PDF/DOCX
+- [ ] Rate limiting on the public endpoint
